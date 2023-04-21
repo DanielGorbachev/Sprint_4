@@ -17,10 +17,3 @@ def expected_answers():
         "expected_answer8": 'Да, обязательно. Всем самокатов! И Москве, и Московской области.'
     }
     return expected_answers
-
-@pytest.fixture()
-def open_site():
-    driver = webdriver.Firefox()
-    driver.get(BPLocator.main_page_url)
-    yield driver
-    driver.quit()
