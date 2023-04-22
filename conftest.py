@@ -1,19 +1,16 @@
 import pytest
 from selenium import webdriver
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
 
 from locators.base_page_locators import BPLocator
 
 
-@pytest.fixture
-def expected_answers():
-    expected_answers = {
-        "expected_answer1": 'Сутки — 400 рублей. Оплата курьеру — наличными или картой.',
-        "expected_answer2": 'Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.',
-        "expected_answer3": 'Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.',
-        "expected_answer4": 'Только начиная с завтрашнего дня. Но скоро станем расторопнее.',
-        "expected_answer5": 'Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010.',
-        "expected_answer6": 'Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.',
-        "expected_answer7": 'Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.',
-        "expected_answer8": 'Да, обязательно. Всем самокатов! И Москве, и Московской области.'
-    }
-    return expected_answers
+@pytest.fixture(scope="session")
+def browser():
+    driver = webdriver.Firefox()
+    driver.get(BPLocator.main_page_url)
+    WebDriverWait(driver, 10).until(
+        expected_conditions.presence_of_element_located(BPLocator.order_header_button))
+    yield driver
+    driver.quit()
