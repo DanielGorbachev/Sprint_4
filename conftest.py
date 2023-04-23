@@ -6,7 +6,7 @@ from locators.base_page_locators import BPLocator
 from locators.main_page_locators import MPLocator
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def browser():
     driver = webdriver.Firefox()
     driver.get(BPLocator.main_page_url)
