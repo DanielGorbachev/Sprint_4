@@ -36,3 +36,6 @@ class MainPageSamokat(BasePage):
 
     def wait_for_cookie_notify_appears(self):
         WebDriverWait(self.browser, 5).until(expected_conditions.visibility_of_element_located(MPLocator.accept_cookie))
+
+    def move_to_header(self):
+        self.browser.execute_script("scroll(0, 250);")

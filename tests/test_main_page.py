@@ -53,6 +53,7 @@ class TestLogoNavigation:
     @allure.description('Переходим на страницу с оформлением заказа и возвращаемся с нее на главную страницу сайта')
     def test_return_to_main_page_from_header_positive_result(self, browser):
         main_page = MainPageSamokat(browser)
+        main_page.move_to_header()
         main_page.click_make_order_header()
         main_page.click_samokat_logo()
         element = browser.current_url
