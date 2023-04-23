@@ -7,127 +7,65 @@ from pages.base_page import BasePage
 from pages.main_page import MainPageSamokat
 from locators.base_page_locators import BPLocator
 import allure
+import pytest
 
 
 class TestMainPageQuestions:
-    driver = None
 
-    @classmethod
-    def setup_class(cls):
-        cls.driver = webdriver.Firefox()
-        cls.driver.get(BPLocator.main_page_url)
+    answers = [
+        "Сутки — 400 рублей. Оплата курьеру — наличными или картой.",
+        "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.",
+        "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.",
+        "Только начиная с завтрашнего дня. Но скоро станем расторопнее.",
+        "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010.",
+        "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.",
+        "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.",
+        "Да, обязательно. Всем самокатов! И Москве, и Московской области."
+    ]
 
     @allure.title("Проверка появления ответов при нажатии на вопросы на главной странице")
     @allure.description('На странице ищем элемент c вопросом и проверяем его ответ')
-    @allure.step("Ответ на вопрос №1")
-    def test_dropdown_answer_1_appears(self, expected_answers):
-        MainPageSamokat.scroll_to_questions(self)
-        question = self.driver.find_element(*MPLocator.q_prise_button)
-        question.click()
-        WebDriverWait(self.driver, 3).until(expected_conditions.presence_of_element_located(MPLocator.a_prise))
-        answer = self.driver.find_element(*MPLocator.a_prise).text
-        assert answer == expected_answers["expected_answer1"], f"Answer doesn't match for question '{MPLocator.q_prise_button}'"
-
-    @allure.step("Ответ на вопрос №2")
-    def test_dropdown_answer_2_appears(self, expected_answers):
-        MainPageSamokat.scroll_to_questions(self)
-        question = self.driver.find_element(*MPLocator.q_several_scooters_button)
-        question.click()
-        WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located(MPLocator.a_several_scooters))
-        answer = self.driver.find_element(*MPLocator.a_several_scooters).text
-        assert answer == expected_answers["expected_answer2"], f"Answer doesn't match for question '{MPLocator.q_several_scooters_button}'"
-
-    @allure.step("Ответ на вопрос №3")
-    def test_dropdown_answer_3_appears(self, expected_answers):
-        MainPageSamokat.scroll_to_questions(self)
-        question = self.driver.find_element(*MPLocator.q_rental_period_button)
-        question.click()
-        WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located(MPLocator.a_rental_period))
-        answer = self.driver.find_element(*MPLocator.a_rental_period).text
-        assert answer == expected_answers[
-            "expected_answer3"], f"Answer doesn't match for question '{MPLocator.q_rental_period_button}'"
-
-    @allure.step("Ответ на вопрос №4")
-    def test_dropdown_answer_4_appears(self, expected_answers):
-        MainPageSamokat.scroll_to_questions(self)
-        question = self.driver.find_element(*MPLocator.q_order_today_button)
-        question.click()
-        WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located(MPLocator.a_order_today))
-        answer = self.driver.find_element(*MPLocator.a_order_today).text
-        assert answer == expected_answers[
-            "expected_answer4"], f"Answer doesn't match for question '{MPLocator.q_order_today_button}'"
-
-    @allure.step("Ответ на вопрос №5")
-    def test_dropdown_answer_5_appears(self, expected_answers):
-        MainPageSamokat.scroll_to_questions(self)
-        question = self.driver.find_element(*MPLocator.q_extend_order_or_return_button)
-        question.click()
-        WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located(MPLocator.a_extend_order_or_return))
-        answer = self.driver.find_element(*MPLocator.a_extend_order_or_return).text
-        assert answer == expected_answers[
-            "expected_answer5"], f"Answer doesn't match for question '{MPLocator.q_extend_order_or_return_button}'"
-
-    @allure.step("Ответ на вопрос №6")
-    def test_dropdown_answer_6_appears(self, expected_answers):
-        MainPageSamokat.scroll_to_questions(self)
-        question = self.driver.find_element(*MPLocator.q_charger_scooter_button)
-        question.click()
-        WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located(MPLocator.a_charger_scooter))
-        answer = self.driver.find_element(*MPLocator.a_charger_scooter).text
-        assert answer == expected_answers[
-            "expected_answer6"], f"Answer doesn't match for question '{MPLocator.q_charger_scooter_button}'"
-
-    @allure.step("Ответ на вопрос №7")
-    def test_dropdown_answer_7_appears(self, expected_answers):
-        MainPageSamokat.scroll_to_questions(self)
-        question = self.driver.find_element(*MPLocator.q_cansel_order_button)
-        question.click()
-        WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located(MPLocator.a_cansel_order))
-        answer = self.driver.find_element(*MPLocator.a_cansel_order).text
-        assert answer == expected_answers[
-            "expected_answer7"], f"Answer doesn't match for question '{MPLocator.q_cansel_order_button}'"
-
-    @allure.step("Ответ на вопрос №8")
-    def test_dropdown_answer_8_appears(self, expected_answers):
-        MainPageSamokat.scroll_to_questions(self)
-        question = self.driver.find_element(*MPLocator.q_outside_MKAD_button)
-        question.click()
-        WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located(MPLocator.a_outside_MKAD))
-        answer = self.driver.find_element(*MPLocator.a_outside_MKAD).text
-        assert answer == expected_answers[
-            "expected_answer8"], f"Answer doesn't match for question '{MPLocator.q_outside_MKAD_button}'"
-
-    @classmethod
-    def teardown_class(cls):
-        cls.driver.quit()
+    @pytest.mark.parametrize("question,answer,expected_answer", [
+        [MPLocator.q_prise_button, MPLocator.a_prise, "Сутки — 400 рублей. Оплата курьеру — наличными или картой."],
+        [MPLocator.q_several_scooters_button, MPLocator.a_several_scooters,
+         "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим."],
+        [MPLocator.q_rental_period_button, MPLocator.a_rental_period,
+         "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30."],
+        [MPLocator.q_order_today_button, MPLocator.a_order_today, "Только начиная с завтрашнего дня. Но скоро станем расторопнее."],
+        [MPLocator.q_extend_order_or_return_button,MPLocator.a_extend_order_or_return,
+         "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010."],
+        [MPLocator.q_charger_scooter_button,MPLocator.a_charger_scooter,
+         "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится."],
+        [MPLocator.q_cansel_order_button, MPLocator.a_cansel_order,
+         "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои."],
+        [MPLocator.q_outside_MKAD_button, MPLocator.a_outside_MKAD, "Да, обязательно. Всем самокатов! И Москве, и Московской области."]
+    ])
+    def test_dropdown_questions_answer_appears(self, browser, question, answer, expected_answer):
+        main_page = MainPageSamokat(browser)
+        main_page.scroll_to_questions()
+        question_element = main_page.find_question(*question) # переписать в страницу
+        question_element.click()
+        # WebDriverWait(browser, 3).until(expected_conditions.presence_of_element_located(MPLocator.a_prise)) #переписать в ожидание
+        answer = main_page.find_question(*answer).text #переписать клик по ответу
+        assert answer == expected_answer, f"Answer doesn't match for question '{question}'"
 
 
 class TestLogoNavigation:
-    driver = None
-
-    @classmethod
-    def setup_class(cls):
-        cls.driver = webdriver.Firefox()
-        cls.driver.get(BPLocator.main_page_url)
-
     @allure.title("Возврат на главную страницу сайта при нажатии на логотип самоката")
     @allure.description('Переходим на страницу с оформлением заказа и возвращаемся с нее на главную страницу сайта')
-    def test_return_to_main_page_from_header_positive_result(self):
-        BasePage.click_make_order_header(self)
-        BasePage.click_samokat_logo(self)
-        element = self.driver.current_url
+    def test_return_to_main_page_from_header_positive_result(self, browser):
+        main_page = MainPageSamokat(browser)
+        main_page.click_make_order_header()
+        main_page.click_samokat_logo()
+        element = browser.current_url
         site_url = BPLocator.main_page_url
         assert element == site_url
 
     @allure.title("Нажатие на логотип 'Яндекс' открывает главную страницу Яндекса")
-    def test_yandex_open_new_page_positive_result(self):
-        BasePage.click_yandex_logo(self)
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        WebDriverWait(self.driver, 5).until(expected_conditions.visibility_of_element_located(
-            (By.XPATH, "//button[contains(text(),'Найти')]")))
-        element = self.driver.find_element(By.XPATH, "//div[contains(text(),'Поиск Яндекса')]").text
-        assert element is not None, "Error when trying to go to the main page of Yandex"
-
-    @classmethod
-    def teardown_class(cls):
-        cls.driver.quit()
+    def test_yandex_open_new_page_positive_result(self, browser):
+        main_page = MainPageSamokat(browser)
+        main_page.click_yandex_logo()
+        browser.switch_to.window(browser.window_handles[1])
+        main_page.wait_for_load_yandex_search_btn()
+        site_url = browser.current_url
+        assert "dzen.ru" in site_url, "Error when trying to go to the main page of Yandex"

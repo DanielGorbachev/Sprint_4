@@ -23,3 +23,7 @@ class MPLocator:
     a_outside_MKAD = [By.XPATH, "//p[contains(text(),'Московской области')]"]
 
     sub_header_questions = [By.XPATH, "//div[contains(text(),'Вопросы о важном')]"]
+    yandex_search_btn = [By.XPATH, "//button[contains(text(),'Найти')]"]
+    yandex_homepage_btn = [By.XPATH, "//a[@rel='noopener noreferrer']"]
+    samokat_homepage_btn = [By.XPATH, "//a[contains(@class, 'LogoScooter')]"]
+    order_header_button = [By.XPATH, "//div[contains(@class, 'Header')]//button[contains(text(),'Заказать')]"]
