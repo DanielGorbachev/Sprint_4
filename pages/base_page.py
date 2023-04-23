@@ -3,6 +3,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
 
+from locators.main_page_locators import MPLocator
+
 
 class BasePage:
     def __init__(self, browser):
@@ -13,7 +15,7 @@ class BasePage:
 
     def wait_for_load_header(self):
         WebDriverWait(self.browser, 3).until(
-            expected_conditions.visibility_of_element_located(BPLocator.order_header_button))
+            expected_conditions.visibility_of_element_located(MPLocator.order_header_button))
 
     def click_element(self, locator):               # новое
         element = WebDriverWait(self.browser, 10).until(
