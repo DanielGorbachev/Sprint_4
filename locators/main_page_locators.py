@@ -3,7 +3,6 @@ from selenium.webdriver.common.by import By
 
 class MPLocator:
     order_button = [By.XPATH, "//div[contains(@class, 'Home')]/child::button"]
-
     q_prise_button = [By.XPATH, "//div[contains(text(),'Сколько это стоит?')]"]
     q_several_scooters_button = [By.XPATH, "//div[contains(text(),'несколько самокатов!')]"]
     q_rental_period_button = [By.XPATH, "//div[contains(text(),'время аренды?')]"]
@@ -12,7 +11,6 @@ class MPLocator:
     q_charger_scooter_button = [By.XPATH, "//div[contains(text(),'привозите зарядку')]"]
     q_cansel_order_button = [By.XPATH, "//div[contains(text(),'отменить заказ')]"]
     q_outside_MKAD_button = [By.XPATH, "//div[contains(text(),'за МКАДом')]"]
-
     a_prise = [By.XPATH, "//p[contains(text(),'400 рублей')]"]
     a_several_scooters = [By.XPATH, "//p[contains(text(),'один заказ — один самокат')]"]
     a_rental_period = [By.XPATH, "//p[contains(text(),'Отсчёт времени аренды начинается с момента')]"]
@@ -21,9 +19,9 @@ class MPLocator:
     a_charger_scooter = [By.XPATH, "//p[contains(text(),'Самокат приезжает к вам с полной зарядкой')]"]
     a_cansel_order = [By.XPATH, "//p[contains(text(),'Да, пока самокат не привезли')]"]
     a_outside_MKAD = [By.XPATH, "//p[contains(text(),'Московской области')]"]
-
     sub_header_questions = [By.XPATH, "//div[contains(text(),'Вопросы о важном')]"]
     yandex_search_btn = [By.XPATH, "//button[contains(text(),'Найти')]"]
     yandex_homepage_btn = [By.XPATH, "//a[@rel='noopener noreferrer']"]
     samokat_homepage_btn = [By.XPATH, "//a[contains(@class, 'LogoScooter')]"]
     order_header_button = [By.XPATH, "//div[contains(@class, 'Header')]//button[contains(text(),'Заказать')]"]
+    accept_cookie = [By.XPATH, "//button[@id='rcc-confirm-button']"]

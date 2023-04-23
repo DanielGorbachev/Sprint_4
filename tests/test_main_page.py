@@ -22,7 +22,6 @@ class TestMainPageQuestions:
         "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.",
         "Да, обязательно. Всем самокатов! И Москве, и Московской области."
     ]
-
     @allure.title("Проверка появления ответов при нажатии на вопросы на главной странице")
     @allure.description('На странице ищем элемент c вопросом и проверяем его ответ')
     @pytest.mark.parametrize("question,answer,expected_answer", [
@@ -43,10 +42,9 @@ class TestMainPageQuestions:
     def test_dropdown_questions_answer_appears(self, browser, question, answer, expected_answer):
         main_page = MainPageSamokat(browser)
         main_page.scroll_to_questions()
-        question_element = main_page.find_question(*question) # переписать в страницу
+        question_element = main_page.find_question(*question)
         question_element.click()
-        # WebDriverWait(browser, 3).until(expected_conditions.presence_of_element_located(MPLocator.a_prise)) #переписать в ожидание
-        answer = main_page.find_question(*answer).text #переписать клик по ответу
+        answer = main_page.find_question(*answer).text
         assert answer == expected_answer, f"Answer doesn't match for question '{question}'"
 
 
