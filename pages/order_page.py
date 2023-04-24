@@ -5,12 +5,11 @@ from selenium.webdriver.support.wait import WebDriverWait
 from locators.order_page_locators import Locator
 import random
 from pages.base_page import BasePage
-from faker import Faker
+from helpers.random_data_helper import RandomDataHelper
 import allure
 
 
-class OrderPageSamokat(BasePage):
-    fake = Faker('ru_RU')
+class OrderPageSamokat(BasePage, RandomDataHelper):
     def wait_for_load_title(self):
         WebDriverWait(self.browser, 3).until(expected_conditions.visibility_of_element_located(Locator.order_page_title))
 
@@ -77,35 +76,18 @@ class OrderPageSamokat(BasePage):
         cancel_order_text = self.browser.find_element(*Locator.cancel_order_btn).text
         return cancel_order_text
 
-    def generate_random_name(self):
-        return self.fake.first_name()
-
-    def generate_random_surname(self):
-        return self.fake.last_name()
-
-    def generate_random_adress(self):
-        s = ["Сишарп", "Сиплюсплюс", "Питон"]
-        return f'ул.{random.choice(s)}, дом{random.randint(1,30)}, кв.{random.randint(1,300)}'
-
-    def generate_random_phone_number(self):
-        return f'+7{random.randint(0000000000,9999999999)}'
-
-    def random_color_choice(self):
-        colors = ["black", "gray", "black and gray"]
-        return random.choice(colors)
-
     @allure.step("Ввод тестовых данных")
     def enter_customer_data(self):
-        OrderPageSamokat.set_name(self,self.generate_random_name())
-        OrderPageSamokat.set_surname(self, self.generate_random_surname())
-        OrderPageSamokat.set_adress(self, self.generate_random_adress())
+        OrderPageSamokat.set_name(self, RandomDataHelper.generate_random_name(self))
+        OrderPageSamokat.set_surname(self, RandomDataHelper.generate_random_surname(self))
+        OrderPageSamokat.set_adress(self, RandomDataHelper.generate_random_adress(self))
         OrderPageSamokat.select_random_metro(self)
-        OrderPageSamokat.set_telephone_nmbr(self, self.generate_random_phone_number())
+        OrderPageSamokat.set_telephone_nmbr(self, RandomDataHelper.generate_random_phone_number(self))
         OrderPageSamokat.click_further(self)
         OrderPageSamokat.wait_for_load_title2(self)
         OrderPageSamokat.select_random_date(self)
         OrderPageSamokat.select_rental_period(self)
-        OrderPageSamokat.select_color(self, self.random_color_choice())
+        OrderPageSamokat.select_color(self, RandomDataHelper.random_color_choice(self))
         OrderPageSamokat.select_commentary_field(self, "Комментариев никаких нет")
         OrderPageSamokat.click_order_btn(self)
         OrderPageSamokat.click_confirmation_btn(self)
