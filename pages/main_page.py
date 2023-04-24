@@ -8,13 +8,6 @@ class MainPageSamokat(BasePage):
     def click_make_order(self):
         self.click_element(MPLocator.order_button)
 
-    def scroll_to_questions(self):
-        element = self.browser.find_element(*MPLocator.sub_header_questions)
-        self.browser.execute_script("arguments[0].scrollIntoView();", element)
-
-    def wait_for_order_btn_appears(self):
-        WebDriverWait(self.browser, 5).until(expected_conditions.visibility_of_element_located(MPLocator.order_button))
-
     def find_question(self, *locator):
         return self.browser.find_element(*locator)
 
