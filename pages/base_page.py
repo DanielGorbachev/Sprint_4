@@ -20,3 +20,11 @@ class BasePage:
             expected_conditions.element_to_be_clickable(locator)
         )
         element.click()
+
+    def scroll_to_questions(self):
+        self.wait_for_order_btn_appears()
+        element = self.browser.find_element(*MPLocator.sub_header_questions)
+        self.browser.execute_script("arguments[0].scrollIntoView();", element)
+
+    def wait_for_order_btn_appears(self):
+        WebDriverWait(self.browser, 5).until(expected_conditions.visibility_of_element_located(MPLocator.order_button))
