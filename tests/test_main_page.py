@@ -1,7 +1,3 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
 from locators.main_page_locators import MPLocator
 from pages.base_page import BasePage
 from pages.main_page import MainPageSamokat
@@ -25,22 +21,18 @@ class TestMainPageQuestions:
     @allure.title("Проверка появления ответов при нажатии на вопросы на главной странице")
     @allure.description('На странице ищем элемент c вопросом и проверяем его ответ')
     @pytest.mark.parametrize("question,answer,expected_answer", [
-        [MPLocator.q_prise_button, MPLocator.a_prise, "Сутки — 400 рублей. Оплата курьеру — наличными или картой."],
-        [MPLocator.q_several_scooters_button, MPLocator.a_several_scooters,
-         "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим."],
-        [MPLocator.q_rental_period_button, MPLocator.a_rental_period,
-         "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30."],
-        [MPLocator.q_order_today_button, MPLocator.a_order_today, "Только начиная с завтрашнего дня. Но скоро станем расторопнее."],
-        [MPLocator.q_extend_order_or_return_button,MPLocator.a_extend_order_or_return,
-         "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010."],
-        [MPLocator.q_charger_scooter_button,MPLocator.a_charger_scooter,
-         "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится."],
-        [MPLocator.q_cansel_order_button, MPLocator.a_cansel_order,
-         "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои."],
-        [MPLocator.q_outside_MKAD_button, MPLocator.a_outside_MKAD, "Да, обязательно. Всем самокатов! И Москве, и Московской области."]
+        [MPLocator.q_prise_button, MPLocator.a_prise, answers[0]],
+        [MPLocator.q_several_scooters_button, MPLocator.a_several_scooters, answers[1]],
+        [MPLocator.q_rental_period_button, MPLocator.a_rental_period, answers[2]],
+        [MPLocator.q_order_today_button, MPLocator.a_order_today, answers[3]],
+        [MPLocator.q_extend_order_or_return_button,MPLocator.a_extend_order_or_return, answers[4]],
+        [MPLocator.q_charger_scooter_button,MPLocator.a_charger_scooter, answers[5]],
+        [MPLocator.q_cansel_order_button, MPLocator.a_cansel_order,answers[6]],
+        [MPLocator.q_outside_MKAD_button, MPLocator.a_outside_MKAD, answers[7]]
     ])
     def test_dropdown_questions_answer_appears(self, browser, question, answer, expected_answer):
         main_page = MainPageSamokat(browser)
+        main_page.accept_cookies()
         main_page.scroll_to_questions()
         question_element = main_page.find_question(*question)
         question_element.click()
