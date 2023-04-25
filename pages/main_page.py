@@ -25,7 +25,7 @@ class MainPageSamokat(BasePage):
 
     def accept_cookies(self):
         self.wait_for_cookie_notify_appears()
-        BasePage.click_element(self, MPLocator.accept_cookie)
+        self.click_element(MPLocator.accept_cookie)
 
     def wait_for_cookie_notify_appears(self):
         WebDriverWait(self.browser, 5).until(expected_conditions.visibility_of_element_located(MPLocator.accept_cookie))
