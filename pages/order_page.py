@@ -7,9 +7,12 @@ import random
 from pages.base_page import BasePage
 from helpers.random_data_helper import RandomDataHelper
 import allure
+from faker import Faker
 
 
-class OrderPageSamokat(BasePage, RandomDataHelper):
+class OrderPageSamokat(BasePage):
+    fake = Faker('ru_RU')
+
     def wait_for_load_title(self):
         WebDriverWait(self.browser, 3).until(expected_conditions.visibility_of_element_located(Locator.order_page_title))
 
@@ -78,16 +81,16 @@ class OrderPageSamokat(BasePage, RandomDataHelper):
 
     @allure.step("Ввод тестовых данных")
     def enter_customer_data(self):
-        OrderPageSamokat.set_name(self, RandomDataHelper.generate_random_name(self))
-        OrderPageSamokat.set_surname(self, RandomDataHelper.generate_random_surname(self))
-        OrderPageSamokat.set_adress(self, RandomDataHelper.generate_random_adress(self))
-        OrderPageSamokat.select_random_metro(self)
-        OrderPageSamokat.set_telephone_nmbr(self, RandomDataHelper.generate_random_phone_number(self))
-        OrderPageSamokat.click_further(self)
-        OrderPageSamokat.wait_for_load_title2(self)
-        OrderPageSamokat.select_random_date(self)
-        OrderPageSamokat.select_rental_period(self)
-        OrderPageSamokat.select_color(self, RandomDataHelper.random_color_choice(self))
-        OrderPageSamokat.select_commentary_field(self, "Комментариев никаких нет")
-        OrderPageSamokat.click_order_btn(self)
-        OrderPageSamokat.click_confirmation_btn(self)
+        self.set_name(RandomDataHelper.generate_random_name(self))
+        self.set_surname(RandomDataHelper.generate_random_surname(self))
+        self.set_adress(RandomDataHelper.generate_random_adress(self))
+        self.select_random_metro()
+        self.set_telephone_nmbr(RandomDataHelper.generate_random_phone_number(self))
+        self.click_further()
+        self.wait_for_load_title2()
+        self.select_random_date()
+        self.select_rental_period()
+        self.select_color(RandomDataHelper.random_color_choice(self))
+        self.select_commentary_field("Комментариев никаких нет")
+        self.click_order_btn()
+        self.click_confirmation_btn()

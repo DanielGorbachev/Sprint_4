@@ -1,10 +1,7 @@
 import random
-from faker import Faker
 
 
 class RandomDataHelper:
-    fake = Faker('ru_RU')
-
     @staticmethod
     def generate_random_name(self):
         return self.fake.first_name()
