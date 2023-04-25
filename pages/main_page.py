@@ -12,6 +12,8 @@ class MainPageSamokat(BasePage):
 
     @allure.step("Поиск элемента по локатору")
     def find_question(self, *locator):
+        self.scroll_to_questions()
+        WebDriverWait(self.browser, 5).until(expected_conditions.visibility_of_element_located(locator))
         return self.browser.find_element(*locator)
 
     @allure.step("Клик по логотипу Яндекс")

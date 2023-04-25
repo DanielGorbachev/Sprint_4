@@ -26,14 +26,14 @@ class TestMainPageQuestions:
         [MPLocator.q_rental_period_button, MPLocator.a_rental_period, answers[2]],
         [MPLocator.q_order_today_button, MPLocator.a_order_today, answers[3]],
         [MPLocator.q_extend_order_or_return_button,MPLocator.a_extend_order_or_return, answers[4]],
-        [MPLocator.q_charger_scooter_button,MPLocator.a_charger_scooter, answers[5]],
-        [MPLocator.q_cansel_order_button, MPLocator.a_cansel_order,answers[6]],
+        [MPLocator.q_charger_scooter_button, MPLocator.a_charger_scooter, answers[5]],
+        [MPLocator.q_cansel_order_button, MPLocator.a_cansel_order, answers[6]],
         [MPLocator.q_outside_MKAD_button, MPLocator.a_outside_MKAD, answers[7]]
     ])
     def test_dropdown_questions_answer_appears(self, browser, question, answer, expected_answer):
         main_page = MainPageSamokat(browser)
         main_page.accept_cookies()
-        main_page.scroll_to_questions()
+        # main_page.scroll_to_questions()
         question_element = main_page.find_question(*question)
         question_element.click()
         answer = main_page.find_question(*answer).text
